@@ -10,12 +10,12 @@ if((isset($_POST['username'])) &&(isset($_POST['password']))){
     $query = mysqli_query($conn,
             'SELECT * FROM users where username = "'.$_POST['username'].'" and password = "'.$_POST['password'].'" LIMIT 1');
     
-    if($data = mysqli_fetch_assoc($query)){
+    if($username = mysqli_fetch_assoc($query)){
         session_start();
-        $_SESSION['data'] = $data;
-        header('location:view.php');
+        $_SESSION['data'] = $username;
+        header('location:registration.php');
     }else{
-        echo('Incorrect username or password');
+        echo('Incorrect username or password!!<br>Please try again.');
     }
 }
 ?>
