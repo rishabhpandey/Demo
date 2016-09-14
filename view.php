@@ -17,7 +17,7 @@ if(!isset($_SESSION['data'])){
         mysqli_select_db($conn,"cms");
     }
     
-    $query="SELECT * FROM users";
+    $query="SELECT * FROM users where id = {$_SESSION['id']} LIMIT 1";
     
     $result=mysqli_query($conn,$query);
 }
@@ -30,7 +30,7 @@ if(!isset($_SESSION['data'])){
         <form name="view" action="view.php" method="post">
         <div>
             <h3>
-                <u>View Users</u>
+                <u>View User</u>
             </h3>
         </div>
         <?php
@@ -63,8 +63,8 @@ if(!isset($_SESSION['data'])){
                 <td><?php echo $get['password']?></td>
 
                 <td>
-                    <a href="profile.php?id=<?php echo $get['id'];?>">VIEW</a>
-                    <a href="delete.php?id=<?php echo $get['id'];?>">DELETE</a>
+                    <a href="profile.php?id=<?php echo $get['id'];?>">Update</a>
+                    <a href="delete.php?id=<?php echo $get['id'];?>">Delete</a>
                 </td>
             </tr>
 
@@ -75,7 +75,8 @@ if(!isset($_SESSION['data'])){
         </table>
         <br/>
         <br/>
-        <a href="registration.php?id=<?php echo $get['id'];?>"><b>New Registration</b></a>
+        <a href="registration.php?id=<?php echo $get['id'];?>"><b>New Registration</b></a>&nbsp;
+        <a href="logout.php?id=<?php echo $get['id'];?>"><b>Logout</b></a>
         </form>
     </body>
 </html>

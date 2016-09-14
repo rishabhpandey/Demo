@@ -20,7 +20,7 @@ if(!isset($_SESSION['data'])){
     
     $result=mysqli_query($conn,$query);
     
-    header('Location:view.php');
+    header('Location:registration.php');
 }
 ?>
 

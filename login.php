@@ -13,9 +13,8 @@ if((isset($_POST['username'])) &&(isset($_POST['password']))){
     if($username = mysqli_fetch_assoc($query)){
         session_start();
         $_SESSION['data'] = $username;
+        $_SESSION['data'] = $password;
         header('location:registration.php');
-    }else{
-        echo('Incorrect username or password!!<br>Please try again.');
     }
 }
 ?>
@@ -24,10 +23,12 @@ if((isset($_POST['username'])) &&(isset($_POST['password']))){
         <title>Login</title>
     </head>
     <body>
-        <form action="login.php" method="POST">
-            Username:<input type="text" name="username"/><br>
-            Password:<input type="password" name="password"/><br>
+        <form name="login"  action="#" method="POST" onsubmit="return validateform()">
+            Username:<input type="text" name="username" id="username"/><br>
+            Password:<input type="password" name="password" id="password"/><br>
             <input type="submit"/>
+            
         </form>
     </body>
+    <script src="validation.js" type="text/javascript"></script>
 </html>

@@ -12,10 +12,11 @@ if(!isset($_SESSION['data'])){
         $conn = mysqli_connect($hostname,$user,$password,$db_name);
         if(isset($_POST) && !empty($_POST))
         { 
+            $id = $_SESSION['id']   ;
             $sql = "UPDATE `users` SET `name`='{$_POST['name']}',`Age`='{$_POST['age']}',`Phone`='{$_POST['phone']}',`Email`='{$_POST['email']}',`Username`='{$_POST['username']}',
-                   `Password`='{$_POST['password']}' WHERE`id`='{$_GET['id']}'";
+                   `Password`='{$_POST['password']}' WHERE`id`=$id";
             var_dump($sql);
-            if (! mysqli_query($conn, $query)) {
+            if (! mysqli_query($conn, $sql)) {
                 var_dump(mysqli_error($conn));
             }else{
                 $_SESSION['data'] = $user;
@@ -25,17 +26,23 @@ if(!isset($_SESSION['data'])){
             $sql="SELECT * FROM users WHERE ID = '{$_GET['id']}'";
             $query = mysqli_query($conn,$sql);
             $result = $query->fetch_assoc();
-            var_dump($result);
+//            var_dump($result);
+             
         }
     
 }
 ?>
 <html>
     <head>
-        <title>Registration</title>
+        <title>Update</title>
     </head>
     <body>
-        <form name="regisration" action="profile.php" method="post">
+        <form name="profile" action="profile.php" method="post" onsubmit="return validateProf()">
+            <div>
+                <h3>
+                    <u>Update Profile</u>
+                </h3>
+            </div>
             <table>
                 <tr>
                     <td>Name</td>
@@ -65,4 +72,5 @@ if(!isset($_SESSION['data'])){
             <button type="submit" href="view.php">Submit</button>
         </form>
     </body>
+    <script src="validation.js" type="text/javascript"></script>
 </html>

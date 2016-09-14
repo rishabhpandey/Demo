@@ -14,14 +14,20 @@ if(!isset($_SESSION['data'])){
         
         $query = "INSERT INTO users(`Name`,`Age`,`Phone`,`Email`,`Username`,`Password`) "
                 ."VALUES ('{$_POST['name']}','{$_POST['age']}','{$_POST['phone']}','{$_POST['email']}','{$_POST['username']}','{$_POST['password']}')";
-       
+        
+        
         if (! mysqli_query($conn, $query)) {
             var_dump(mysqli_error($conn));
         }else{
-            $_SESSION['data'] = $user;
+            $_SESSION['id'] = mysqli_insert_id($conn);
+            
+            $_SESSION['logged_in'] = true;
+            
+            $id = mysqli_insert_id($conn);
+            
             header('location:view.php');
         }
-    
+        
     }
 }
 ?>
@@ -30,7 +36,12 @@ if(!isset($_SESSION['data'])){
         <title>Registration</title>
     </head>
     <body>
-        <form name="regisration" action="registration.php" method="post">
+        <form name="regisration" action="#" method="post" onsubmit="return validateReg()">
+            <div>
+                <h3>
+                    <u>Registration</u>
+                </h3>
+            </div>
             <table>
                 <tr>
                     <td>Name</td>
@@ -60,4 +71,5 @@ if(!isset($_SESSION['data'])){
             <button type="submit" href="view.php">Submit</button>
         </form>
     </body>
+    <script src="validation.js" type="text/javascript"></script>
 </html>
